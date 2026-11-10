@@ -3,7 +3,10 @@ import uuid
 import pytest
 from fastapi.testclient import TestClient
 from backend.app.main import app
+from backend.app.db.session import init_db
 
+# Ensure all database tables exist
+init_db()
 client = TestClient(app)
 
 
