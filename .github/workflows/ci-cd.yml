@@ -1,0 +1,35 @@
+name: DeepShield CI/CD
+on:
+  push:
+    branches: [main]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with: {python-version: '3.11'}
+    - run: pip install -r backend/requirements.txt pytest
+    - name: Run Tests
+      env:
+        PYTHONPATH: .
+        DATABASE_URL: sqlite:///./test.db
+        REDIS_URL: redis://localhost:6379/0
+        JWT_SECRET: test-secret-key-12345
+      run: pytest tests/
+  
+  build-deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build Docker
+      run: |
+        docker build -t deepshield/backend:${{ github.sha }} -f backend/Dockerfile .
+        docker build -t deepshield/frontend:${{ github.sha }} ./frontend
+    - name: Push to ECR
+      run: |
+        echo "Pushing to AWS ECR..."
+    - name: Deploy to EKS
+      run: |
+        kubectl set image deployment/deepshield-backend backend=deepshield/backend:${{ github.sha }}

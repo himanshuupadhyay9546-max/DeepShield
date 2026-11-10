@@ -1,0 +1,81 @@
+.
+|____backend
+| |____app
+| | |____api
+| | | |____v1
+| | | | |____auth.py
+| | | | |____detect.py
+| | |____core
+| | | |____config.py
+| | | |____security.py
+| | |____db
+| | | |____session.py
+| | | |____base.py
+| | |____models
+| | | |____user.py
+| | |____services
+| | | |____inference_service.py
+| | |____utils
+| | |____schemas
+| | |____main.py
+| |____requirements.txt
+| |____Dockerfile
+|____ml
+| |____models
+| | |____cbam.py
+| | |____fft_branch.py
+| | |____deepshield.py
+| |____training
+| | |____train.py
+| |____inference
+| | |____gradcam.py
+| | |____predict_image.py
+| | |____predict_video.py
+| | |____predict_audio.py
+| |____datasets
+| | |____faceforensics_loader.py
+| |____utils
+| |____requirements.txt
+|____frontend
+| |____src
+| | |____components
+| | |____pages
+| | | |____Dashboard.tsx
+| | | |____Upload.tsx
+| | |____hooks
+| | |____lib
+| | |____styles
+| | |____App.tsx
+| |____package.json
+| |____Dockerfile
+|____deployment
+| |____docker
+| |____k8s
+| | |____backend-deployment.yaml
+| | |____frontend-deployment.yaml
+| |____aws
+| | |____ecs-task-definition.json
+| |____azure
+| |____gcp
+| |____nginx
+| | |____nginx.conf
+|____database
+| |____migrations
+| |____schema.sql
+|____docs
+| |____ARCHITECTURE.md
+| |____API.md
+| |____DEPLOYMENT.md
+|____tests
+| |____test_api.py
+|____scripts
+| |____setup.sh
+|____.github
+| |____workflows
+| | |____ci-cd.yml
+|____README.md
+|____.env.example
+|____docker-compose.yml
+|____Makefile
+|____PROJECT_STRUCTURE.txt
+|____PROJECT_TREE.txt

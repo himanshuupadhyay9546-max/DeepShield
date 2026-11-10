@@ -1,0 +1,25 @@
+{
+  "family": "deepshield-backend",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "2048",
+  "memory": "4096",
+  "containerDefinitions": [
+    {
+      "name": "backend",
+      "image": "ACCOUNT.dkr.ecr.us-east-1.amazonaws.com/deepshield:latest",
+      "portMappings": [{"containerPort": 8000}],
+      "environment": [
+        {"name": "DATABASE_URL", "value": "postgresql://..."},
+        {"name": "REDIS_URL", "value": "redis://..."}
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/deepshield",
+          "awslogs-region": "us-east-1"
+        }
+      }
+    }
+  ]
+}
