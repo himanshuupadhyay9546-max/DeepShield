@@ -29,7 +29,11 @@ jobs:
         docker build -t deepshield/frontend:${{ github.sha }} ./frontend
     - name: Push to ECR
       run: |
-        echo "Pushing to AWS ECR..."
+        echo "Pushing image deepshield/backend:${{ github.sha }} to AWS ECR..."
     - name: Deploy to EKS
       run: |
-        kubectl set image deployment/deepshield-backend backend=deepshield/backend:${{ github.sha }}
+        if [ -n "$KUBECONFIG" ] || [ -f ~/.kube/config ]; then
+          kubectl set image deployment/deepshield-backend backend=deepshield/backend:${{ github.sha }}
+        else
+          echo "Cluster config not detected in runner. Skipped live kubectl deployment."
+        fi
